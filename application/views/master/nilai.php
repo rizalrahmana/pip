@@ -261,24 +261,26 @@ $modul['modul'] = $this->db->get("modul")->result();
                     string += '<td>' + value["nilai"] + '</td>';
                     string += '</tr>';
                 });
-                console.log(thebest);
+                // console.log(thebest);
 
 
                 var i = 0;
                 var len = thebest.length;
-                var seleksi = []; //10
-                var hs = []; //
+                var seleksi = []; //10,10
+                var hs = []; //10,10
 
                 for (; i < len;) {
-                    if (seleksi[i] == 0) {
+                    if (seleksi.length == 0) {
                         seleksi.push(thebest[i]["nilai"]);
+                        hs.push(thebest[i]["nilai"]);
                     } else if (seleksi[i - 1] == thebest[i]["nilai"]) {
                         hs.push(thebest[i]["nilai"]);
                     } else {
-                        break;
+                        hs.push(thebest[i]["nilai"]);
                     }
                     i++;
                 }
+                console.log(hs.length);
                 console.log(hs);
 
                 // console.log(thebest);
