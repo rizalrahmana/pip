@@ -44,16 +44,15 @@ $modul['modul'] = $this->db->get("modul")->result();
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="row">
-                            <div class="col-6 col-lg-6 col-md-6 col-sm-6 col-xs-6 text-left">
-                                <button class="btn btn-md btn-info" id="btn-tambah"><i class="fa fa-plus"></i>
-                                    Tambah</button>
-                            </div>
-                            <button class="btn btn-md btn-success" id="btn-kalkulasi"><i class="fa fa-plus"></i> Kalkulasi
-                            </button>
+                        <div class="col-6 col-lg-6 col-md-6 col-sm-6 col-xs-6 text-left">
+                            <button class="btn btn-md btn-info" id="btn-tambah"><i class="fa fa-plus"></i> Tambah</button>
+                            <button class="btn btn-md btn-success" id="btn-kalkulasi"><i class="fa fa-plus"></i> Kalkulasi </button>
                         </div>
-                        <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 text-right">
-                            <button class="btn btn-sm btn-danger" title="hapus" id="btn-hapus"><i class="fa fa-trash"></i></button>
+                        <!-- <div class="col-2 col-lg-2 col-md-2 col-sm-2 col-xs-2 text-left">
+                            <button class="btn btn-md btn-success" id="btn-kalkulasi"><i class="fa fa-plus"></i> Kalkulasi </button>
+                        </div> -->
+                        <div class="col-6 col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                            <button class="btn btn-md btn-danger" title="hapus" id="btn-hapus"><i class="fa fa-trash"></i>Reset Kalkulasi</button>
                         </div>
                         <div style="overflow: auto;" class="col-md-12">
                             <table class="table table-striped" id="ajax_table">
@@ -248,7 +247,6 @@ $modul['modul'] = $this->db->get("modul")->result();
             dataType: "JSON",
             async: false,
             success: function(data) {
-                console.log(data);
                 string = '';
                 var thebest = [];
                 no = 0;
@@ -264,16 +262,17 @@ $modul['modul'] = $this->db->get("modul")->result();
                 var text = "";
                 var a = 0;
                 $.each(data, function(key, value) {
-                    if(key>0){
-                        if (value["nilai"] == data[0]['nilai']){
+                    console.log(value["nilai"]);
+                    // console.log(data[0]['nilai']);
+                    if (key > 0) {
+                        if (value["nilai"] == data[0]['nilai']) {
                             a++;
-                            text += "<br>"+a+". "+value['nama_pesdik']+" dengan nilai "+value['nilai']+"";
+                            text += "<br>" + a + ". " + value['nama_pesdik'] + " dengan nilai " + value['nilai'] + "";
                         }
-                    }
-                    else {
+                    } else {
                         a++;
-                        text += "<br>"+a+". "+value['nama_pesdik']+" dengan nilai "+value['nilai']+"";
-                        
+                        text += "<br>" + a + ". " + value['nama_pesdik'] + " dengan nilai " + value['nilai'] + "";
+
                     }
                 });
                 $('#hasil').html(string);
