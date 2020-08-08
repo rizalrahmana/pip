@@ -248,7 +248,7 @@ $modul['modul'] = $this->db->get("modul")->result();
             dataType: "JSON",
             async: false,
             success: function(data) {
-                //console.log(data);
+                console.log(data);
                 string = '';
                 var thebest = [];
                 no = 0;
@@ -261,75 +261,24 @@ $modul['modul'] = $this->db->get("modul")->result();
                     string += '<td>' + value["nilai"] + '</td>';
                     string += '</tr>';
                 });
-                // console.log(thebest);
-
-
-                var i = 0;
-                var len = thebest.length;
-                var seleksi = []; //10,10
-                var hs = []; //10,10
-
-                for (; i < len;) {
-                    if (seleksi.length == 0) {
-                        seleksi.push(thebest[i]["nilai"]);
-                        hs.push(thebest[i]["nilai"]);
-                    } else if (seleksi[i - 1] == thebest[i]["nilai"]) {
-                        hs.push(thebest[i]["nilai"]);
-                    } else {
-                        hs.push(thebest[i]["nilai"]);
+                var text = "";
+                var a = 0;
+                $.each(data, function(key, value) {
+                    if(key>0){
+                        if (value["nilai"] == data[0]['nilai']){
+                            a++;
+                            text += "<br>"+a+". "+value['nama_pesdik']+" dengan nilai "+value['nilai']+"";
+                        }
                     }
-                    i++;
-                }
-                console.log(hs.length);
-                console.log(hs);
-
-                // console.log(thebest);
-                // $('#hasil').html(string);
-                // $("#modal_hasil").modal("show");
-                // var i = 0;
-                // var len = thebest.length;
-                // var text = "";
-                // var n = thebest[i]["nilai"];
-                // console.log(n);
-                // for (; i < len;) {
-                //     if (thebest[i]["nilai"] == thebest[i + 1]["nilai"]) {
-                //         text += thebest[i]["nilai"]+"<br>";
-                //         $('#kesimpulan').html(text);
-                //     } else {
-
-                //     }
-                //     i++;
-                // }
-                // console.log(thebest[0]["nilai"]);
-                // var i = 0;
-                // var text = [];
-                // console.log(text);
-
-                // document.getElementById("kesimpulan").innerHTML = text;
-                // for (; i < thebest.length;) {
-
-                //     if (thebest[i]["nilai"] == thebest[i + i]["nilai"]) {
-                //         text.push(thebest[i]["nilai"]);
-                //         text.push(thebest[i]["nama_pesdik"]);
-                //     } else if (thebest[i]["nilai"] == thebest[i - 1]["nilai"]) {
-                //         text.push(thebest[i]["nilai"]);
-                //         text.push(thebest[i]["nama_pesdik"]);
-                //     } else {
-                //         break;
-                //     }
-                //     i++;
-                // }
-                // $('#kesimpulan').html("<h6><b>Kesimpulan : </b> Dari hasil perhitungan yang dilakukan menggunakan metode SAW, Peserta Didik yang layak diajukan untuk PIP adalah " + text + "</h6>");
-                // console.log(text);
-                //$('#kesimpulan').html("<h6><b>Kesimpulan : </b> Dari hasil perhitungan yang dilakukan menggunakan metode SAW, Peserta Didik yang layak diajukan untuk PIP adalah " + thebest[0]["nama_pesdik"] + " dengan nilai " + thebest[0]["nilai"] + "</h6>");
-                // if (thebest.length == 0) {
-                //     swal("Kalkulasi GAGAL!", "Masukkan data dulu, untuk kalkulasi", "warning");
-                // } else {
-                //     $('#kesimpulan').html("<h6><b>Kesimpulan : </b> Dari hasil perhitungan yang dilakukan menggunakan metode SAW, Peserta Didik yang layak diajukan untuk PIP adalah " + thebest[0]["nama_pesdik"] + " dengan nilai " + thebest[0]["nilai"] + "</h6>");
-                //     $('#hasil').html(string);
-                //     console.log(thebest);
-                //     $("#modal_hasil").modal("show");
-                // }
+                    else {
+                        a++;
+                        text += "<br>"+a+". "+value['nama_pesdik']+" dengan nilai "+value['nilai']+"";
+                        
+                    }
+                });
+                $('#hasil').html(string);
+                $("#modal_hasil").modal("show");
+                $('#kesimpulan').html("<h6><b>Kesimpulan : </b> Dari hasil perhitungan yang dilakukan menggunakan metode SAW, Peserta Didik yang layak diajukan untuk PIP adalah " + text + "</h6>");
 
 
             },
